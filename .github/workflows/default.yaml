@@ -1,0 +1,11 @@
+on: push
+jobs:
+  _:
+    runs-on: k8s # <-- Used runner label
+    container: ubuntu:latest # <-- Required, maybe the Gitea Actions adapter could insert a default
+    steps:
+    # Git is needed for actions/checkout to work for Gitea, rest api is not compatible
+    - run: apt update && apt install -y git
+    - uses: https://github.com/actions/checkout@v3 # <-- The almost only Gitea Extension supported
+    - run: ls -la
+    - run: ls -la .github/workflows
